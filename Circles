@@ -1,0 +1,44 @@
+var count = 0;  // Variable to know which circle we are working on
+
+// If you install this macro, it will be mapped to the F2 Key
+macro "Draw Concentric Quadrants [F2]" { 
+	
+	// Clean previous ROIs
+	roiManager("Reset");
+
+	// Ask for user to draw a line, to define extents
+	waitForUser("Draw a line");
+
+	// Get the line end points
+	getSelectionCoordinates(x,y);
+
+	// Get angle offset
+	offset = atan2(y[1] - y[0], x[1] - x[0]);
+	
+	// Get Center
+	cx = (x[0] + x[1]) /2;
+	cy = (y[0] + y[1]) /2;
+	
+	// Get edge distance
+	r = sqrt(pow(x[0] - x[1],2) + pow(y[0] - y[1],2)) / 2;
+	
+	// Set counter to 0
+	count = 0;
+
+  makePoint(cx,cy);
+  roiManager("Add");
+
+  roiManager("Select", 0);
+  roiManager("Rename", "center");
+
+//R is the radius of the first circle
+//  i is the number of circles
+  for(i=1;i< 8;i++)
+  {
+  makeOval(Ox-i*r,Oy-i*r, i*R+20, i*R+80);
+  roiManager("Add");
+  }
+  roiManager("Show All without labels");
+		
+	}
+}
