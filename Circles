@@ -12,13 +12,13 @@ macro "Draw Ellipse [F2]" {
 	
 	//20um
 	roiManager( "select", 1 );
-	run( "Enlarge...", "enlarge=48.272");
+	run( "Enlarge...", "enlarge=20");
 	run( "Fit Ellipse" );
 	roiManager( "Add" );
 	
 	//80um
 	roiManager( "select", 1 );
-	run( "Enlarge...", "enlarge=193.088");
+	run( "Enlarge...", "enlarge=80");
 	run( "Fit Ellipse" );
 	roiManager( "Add" );
 	
