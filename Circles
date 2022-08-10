@@ -1,67 +1,39 @@
-var count = 0;  // Variable to know which circle we are working on
-
 // If you install this macro, it will be mapped to the F2 Key
 macro "Draw Ellipse [F2]" { 
-
-	setOption("ExpandableArrays",true)
 	
 	// Clean previous ROIs
 	roiManager("Reset");
 
 	// Ask for user to draw a line, to define extents
 	waitForUser("Draw an ellipse");
-
-	// Get the ellipse
-	Roi.getBounds(x, y, width, height);
-
-	//find center of area
-	cx = x + width/2;
-	cy = y + height/2;
-
-	//find longest axis
-	if (height < width) {
-	ystep = 1;
-	xstep = width/height;
-	shortest = height;
-	}
-	else {
-	ystep = height/width;
-	xstep = 1;
-	shortest = width;	
-	}
-
-  makePoint(cx,cy);
-  roiManager("Add");
-
-  roiManager("Select", 0);
-  roiManager("Rename", "center");
-
-	//get new width and height
-	w2 = (width+20);
-	h2 = (height+20);
+	roiManager( "Add" );
+	run( "Fit Ellipse" );
+	roiManager( "Add" );
 	
-	//get new width and height
-	w3 = (width+80);
-	h3 = (height+80);
+	//20um
+	roiManager( "select", 1 );
+	run( "Enlarge...", "enlarge=48.272");
+	run( "Fit Ellipse" );
+	roiManager( "Add" );
+	
+	//80um
+	roiManager( "select", 1 );
+	run( "Enlarge...", "enlarge=193.088");
+	run( "Fit Ellipse" );
+	roiManager( "Add" );
+	
+	roiManager( "select", 0 );
+	roiManager( "Set Color", "grey" );
 
-	//get new ellipse origin (which is top left corner)
-	newx2 = cx - (w2/2);
-	newy2 = cy - (h2/2); 
+	roiManager( "select", 1 );
+	roiManager( "Set Color", "yellow" );
+
+	roiManager( "select", 2 );
+	roiManager( "Set Color", "blue" );
+
+	roiManager( "select", 3 );
+	roiManager( "Set Color", "red" );
 	
-	//get new ellipse origin (which is top left corner)
-	newx3 = cx - (w3/2);
-	newy3 = cy - (h3/2); 
-	
-	//make new ellipse and chane to a line (outline)
-	makeOval(newx2, newy2, w2, h2);
-	run("Fit Ellipse");
-	run("Area to Line");
-	roiManager("Add");
-	makeOval(newx3, newy3, w3, h3);
-	run("Fit Ellipse");
-	run("Area to Line");
-	roiManager("Add");
-	roiManager("Show All without labels");
-		
-	}
+	//roiManager( "Show All" );
+ 
 }
