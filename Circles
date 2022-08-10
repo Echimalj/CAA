@@ -12,15 +12,21 @@ macro "Draw Ellipse [F2]" {
 	
 	//20um
 	roiManager( "select", 1 );
+	roiManager("Rename", "Initial");
 	run( "Enlarge...", "enlarge=20");
 	run( "Fit Ellipse" );
 	roiManager( "Add" );
+	roiManager( "select", 2 );
+	roiManager("Rename", "20um");
 	
 	//80um
 	roiManager( "select", 1 );
 	run( "Enlarge...", "enlarge=80");
 	run( "Fit Ellipse" );
 	roiManager( "Add" );
+	roiManager( "select", 3 );
+	roiManager("Rename", "80um");
+
 	
 	roiManager( "select", 0 );
 	roiManager( "Set Color", "grey" );
@@ -34,6 +40,7 @@ macro "Draw Ellipse [F2]" {
 	roiManager( "select", 3 );
 	roiManager( "Set Color", "red" );
 	
-	//roiManager( "Show All" );
+	roiManager( "Measure" );
+	roiManager( "Show All" );
  
 }
