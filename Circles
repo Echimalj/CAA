@@ -33,15 +33,16 @@ macro "Draw Ellipse [F2]" {
 
 	roiManager( "select", 1 );
 	roiManager( "Set Color", "yellow" );
+	roiManager( "Measure" );
 
 	roiManager( "select", 2 );
 	roiManager( "Set Color", "blue" );
+	roiManager( "Measure" );
 
 	roiManager( "select", 3 );
 	roiManager( "Set Color", "red" );
-	
-	roiManager( "deselect" );
 	roiManager( "Measure" );
+	
 	roiManager( "Show All" );
  
 }
