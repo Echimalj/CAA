@@ -54,6 +54,9 @@ macro "Draw Ellipse [F2]" {
 	
 	//make new ellipse and chane to a line (outline)
 	makeOval(newx2, newy2, w2, h2);
+	run("Fit Ellipse");
+	run("Area to Line");
+	roiManager("Add");
 	makeOval(newx3, newy3, w3, h3);
 	run("Fit Ellipse");
 	run("Area to Line");
