@@ -49,8 +49,8 @@ macro "Draw Ellipse [F2]" {
 	newy2 = cy - (h2/2); 
 	
 	//get new ellipse origin (which is top left corner)
-	newx3 = cx - (w/2);
-	newy3 = cy - (h/2); 
+	newx3 = cx - (w3/2);
+	newy3 = cy - (h3/2); 
 	
 	//make new ellipse and chane to a line (outline)
 	makeOval(newx2, newy2, w2, h2);
