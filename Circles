@@ -40,6 +40,7 @@ macro "Draw Ellipse [F2]" {
 	roiManager( "select", 3 );
 	roiManager( "Set Color", "red" );
 	
+	roiManager( "deselect" );
 	roiManager( "Measure" );
 	roiManager( "Show All" );
  
