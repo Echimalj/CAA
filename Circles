@@ -35,7 +35,7 @@ macro "Draw Concentric Quadrants [F2]" {
 //  i is the number of circles
   for(i=1;i< 8;i++)
   {
-  makeOval(Ox-i*r,Oy-i*r, i*R+20, i*R+80);
+  makeOval(cx-i*r,cy-i*r, i*r+20, i*r+80);
   roiManager("Add");
   }
   roiManager("Show All without labels");
