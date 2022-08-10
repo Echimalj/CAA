@@ -1,29 +1,34 @@
 var count = 0;  // Variable to know which circle we are working on
 
 // If you install this macro, it will be mapped to the F2 Key
-macro "Draw Concentric Quadrants [F2]" { 
+macro "Draw Ellipse [F2]" { 
+
+	setOption("ExpandableArrays",true)
 	
 	// Clean previous ROIs
 	roiManager("Reset");
 
 	// Ask for user to draw a line, to define extents
-	waitForUser("Draw a line");
+	waitForUser("Draw an ellipse");
 
-	// Get the line end points
-	getSelectionCoordinates(x,y);
+	// Get the ellipse
+	Roi.getBounds(x, y, width, height);
 
-	// Get angle offset
-	offset = atan2(y[1] - y[0], x[1] - x[0]);
-	
-	// Get Center
-	cx = (x[0] + x[1]) /2;
-	cy = (y[0] + y[1]) /2;
-	
-	// Get edge distance
-	r = sqrt(pow(x[0] - x[1],2) + pow(y[0] - y[1],2)) / 2;
-	
-	// Set counter to 0
-	count = 0;
+	//find center of area
+	cx = x + width/2;
+	cy = y + height/2;
+
+	//find longest axis
+	if (height < width) {
+	ystep = 1;
+	xstep = width/height;
+	shortest = height;
+	}
+	else {
+	ystep = height/width;
+	xstep = 1;
+	shortest = width;	
+	}
 
   makePoint(cx,cy);
   roiManager("Add");
@@ -31,14 +36,29 @@ macro "Draw Concentric Quadrants [F2]" {
   roiManager("Select", 0);
   roiManager("Rename", "center");
 
-//R is the radius of the first circle
-//  i is the number of circles
-  for(i=1;i< 8;i++)
-  {
-  makeOval(cx-i*r,cy-i*r, i*r+20, i*r+80);
-  roiManager("Add");
-  }
-  roiManager("Show All without labels");
+	//get new width and height
+	w2 = (width+20);
+	h2 = (height+20);
+	
+	//get new width and height
+	w3 = (width+80);
+	h3 = (height+80);
+
+	//get new ellipse origin (which is top left corner)
+	newx2 = cx - (w2/2);
+	newy2 = cy - (h2/2); 
+	
+	//get new ellipse origin (which is top left corner)
+	newx3 = cx - (w/2);
+	newy3 = cy - (h/2); 
+	
+	//make new ellipse and chane to a line (outline)
+	makeOval(newx2, newy2, w2, h2);
+	makeOval(newx3, newy3, w3, h3);
+	run("Fit Ellipse");
+	run("Area to Line");
+	roiManager("Add");
+	roiManager("Show All without labels");
 		
 	}
 }
